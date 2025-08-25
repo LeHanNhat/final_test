@@ -37,9 +37,9 @@ public class Equipment {
     @Max(value = 500,message = "Quantity must be between 0-500")
     private int quantityAvailable;
 
-//    @Column(name = "purchaseDate",columnDefinition = "DATETIME")
-//    @CreationTimestamp
-//    private LocalDateTime purchaseDate;
+    @Column(name = "purchaseDate",columnDefinition = "DATETIME")
+    @CreationTimestamp
+    private LocalDateTime purchaseDate;
 
     @ManyToOne
     @JoinColumn(name = "equipmentTypeId")
