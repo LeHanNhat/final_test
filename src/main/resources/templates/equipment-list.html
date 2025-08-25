@@ -7,13 +7,18 @@
 </head>
 <body>
 <div class="std-list-container">
+    <div class="welcome">
+        <!--<p>Welcome, <span class="username" th:text="${name}">username </span></p>-->
+        <span>Welcome, <span class="username" th:text="${session.user.username}">username </span></span></br>
+        <a th:href="@{'/logout'}">Logout</a>
+    </div>
     <h1>Student-list</h1>
     <form th:action="@{/equipments}" method="get">
         <input placeholder="Search by name" type="text" name="keyword">
         <button type="submit">Search</button>
     </form>
-
-    <a th:href="@{/equipments/add}">Add new student</a>
+    <span class="errRole" th:if="${errRole != null}" th:text="${errRole}"></span>
+    <a th:href="@{/equipments/add}">Add new equipmet</a>
 
     <table>
         <thead>
@@ -34,9 +39,11 @@
             <td th:text = "${e.equipmentType.getTypeName()}"></td>
             <td th:text = "${e.purchasePrice}"></td>
             <td th:text = "${e.quantityAvailable}"></td>
-            <td >
-                <a th:href="@{'/equipments/edit/' + ${e.equipmentId}}">Edit</a>
-                <a th:href="@{'/equipments/delete/' + ${e.equipmentId}}" onclick="confirm('Are you sure you want to delete this object?')"> | Delete</a>
+            <td th:if="${session.user.role == 1 or session.user.role == 2}">
+                <a th:href="@{'/equipments/edit/' + ${e.equipmentId}}"
+                   th:if="${session.user.role == 1 or session.user.role == 2}">Edit</a>
+                <a th:href="@{'/equipments/delete/' + ${e.equipmentId}}" onclick="confirm('Are you sure you want to delete this object?')"
+                   th:if="${session.user.role == 1 }"> | Delete</a>
             </td>
 
         </tr>
