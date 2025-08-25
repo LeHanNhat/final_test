@@ -28,7 +28,7 @@ public class Equipment {
     @Size(min = 5, max = 100,message = "Name must be between 5 and 100 characters")
     private String equipmentName;
 
-    @Column(name = "equipmentType",columnDefinition = "DECIMAL(10,2)",nullable = false)
+    @Column(name = "purchasePrice",columnDefinition = "DECIMAL(10,2)",nullable = false)
     @Min(value = 1000,message = "Purchase price must be greater than 1000")
     private double purchasePrice;
 

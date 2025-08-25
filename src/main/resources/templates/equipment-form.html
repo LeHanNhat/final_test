@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Edit Student</title>
+    <link rel="stylesheet" th:href="@{/css/form-style.css}">
+</head>
+<body>
+<div class="form-container">
+    <h1 th:if="${type == 'edit'}">Edit student info</h1>
+    <h1 th:if="${type =='add'}">Add new student info</h1>
+    <form action="/equipments/form" th:object="${equipment}" method="post">
+        <div class="form-group">
+            <label for="id">ID</label>
+
+            <input type="text" id="id" th:field="*{equipmentId}"
+                   th:readonly="${type=='edit'}"
+                   th:style="${formMode=='edit'?'color : lightgrey' : 'color : black'}">
+            <span th:errors="*{equipmentId}" style="color: red"></span>
+            <span th:if="${duplicateId != null}" th:text="${duplicateId}" style="color: red">*</span>
+        </div>
+        <div class="form-group">
+            <label for="name">Name</label>
+            <input type="text" id="name" th:field="*{equipmentName}">
+            <span th:errors="*{equipmentName}" style="color: red"></span>
+        </div>
+        <div class="form-group">
+            <label for="price">Price</label>
+            <input type="text" id="price" th:field="*{purchasePrice}">
+            <span th:errors="*{purchasePrice}" style="color: red"></span>
+        </div>
+        <div class="form-group">
+            <label for="quantity">Quantity</label>
+            <input type="text" id="quantity" th:field="*{quantityAvailable}">
+            <span th:errors="*{quantityAvailable}" style="color: red"></span>
+        </div>
+        <div class="form-group">
+            <label for="type">Major</label>
+
+            <!--Xem lại nhân sinh!!!!!-->
+            <select id="type" th:field="*{equipmentType.id}">
+                <option th:each="m : ${equipmentTypes}"
+                        th:value="${m.id}"
+                        th:text="${m.typeName}"
+                ></option>
+            </select>
+        </div>
+        <div class="form-group">
+            <button type="submit">Save</button>
+        </div>
+        <!--Lưu lại trạng thái edit hay add để khi bắt validate gọi lại form thì
+        có formMode nếu ko sẽ bị lỗi NPE-->
+        <input type="hidden" name="type" th:value="${type}" >
+    </form>
+</div>
+
+</body>
+</html>
