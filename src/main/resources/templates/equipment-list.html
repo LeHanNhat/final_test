@@ -33,7 +33,7 @@
         </thead>
         <tbody>
 
-        <tr th:each="e : ${equipments}">
+        <tr th:each="e:${equipments}">
             <td th:text = "${e.equipmentId}"></td>
             <td th:text = "${e.equipmentName}"></td>
             <td th:text = "${e.equipmentType.getTypeName()}"></td>
